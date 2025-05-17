@@ -1,0 +1,2118 @@
+{
+	"info": {
+		"_postman_id": "e1e0bd7b-8b9c-4792-a97b-7c0d998c4ebe",
+		"name": "ClickUp_Create_lists_Var_Collect",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7003939"
+	},
+	"item": [
+		{
+			"name": "Create_correct_list",
+			"item": [
+				{
+					"name": "Create_list / Create_list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json ()\r",
+									"var id=jsonData.id\r",
+									"console.log(\"id\")\r",
+									"console.log(id)\r",
+									"pm.collectionVariables.set(\"id\", id);\r",
+									"\r",
+									"const Ajv = require('ajv');\r",
+									"const ajv = new Ajv();\r",
+									"\r",
+									"var schema = {\r",
+									"    \"type\": \"object\",\r",
+									"    \"properties\": {\r",
+									"        \"id\": { \"type\": \"string\" },\r",
+									"        \"name\": { \"type\": \"string\" },\r",
+									"        \"deleted\": { \"type\": \"boolean\" },\r",
+									"        \"orderindex\": { \"type\": \"number\" },\r",
+									"        \"content\": { \"type\": \"string\" },\r",
+									"        \"status\": {\r",
+									"            \"type\": \"object\",\r",
+									"            \"properties\": {\r",
+									"                \"status\": { \"type\": \"string\" },\r",
+									"                \"color\": { \"type\": \"string\" },\r",
+									"                \"hide_label\": { \"type\": \"boolean\" }\r",
+									"            }\r",
+									"        },\r",
+									"        \"priority\": {\r",
+									"            \"type\": \"object\",\r",
+									"            \"properties\": {\r",
+									"                \"priority\": { \"type\": \"string\" },\r",
+									"                \"color\": { \"type\": \"string\" }\r",
+									"            }\r",
+									"        },\r",
+									"        \"assignee\": { \"type\": \"null\" },\r",
+									"        \"due_date\": { \"type\": \"null\" },\r",
+									"        \"start_date\": { \"type\": \"null\" },\r",
+									"        \"folder\": {\r",
+									"            \"type\": \"object\",\r",
+									"            \"properties\": {\r",
+									"                \"id\": { \"type\": \"string\" },\r",
+									"                \"name\": { \"type\": \"string\" },\r",
+									"                \"hidden\": { \"type\": \"boolean\" },\r",
+									"                \"access\": { \"type\": \"boolean\" }\r",
+									"            }\r",
+									"        },\r",
+									"        \"space\": {\r",
+									"            \"type\": \"object\",\r",
+									"            \"properties\": {\r",
+									"                \"id\": { \"type\": \"string\" },\r",
+									"                \"name\": { \"type\": \"string\" },\r",
+									"                \"access\": { \"type\": \"boolean\" }\r",
+									"            }\r",
+									"        },\r",
+									"        \"inbound_address\": { \"type\": \"string\" },\r",
+									"        \"archived\": { \"type\": \"boolean\" },\r",
+									"        \"override_statuses\": { \"type\": \"boolean\" },\r",
+									"        \"statuses\": {\r",
+									"            \"type\": \"array\",\r",
+									"            \"items\": {\r",
+									"                \"type\": \"object\",\r",
+									"                \"properties\": {\r",
+									"                    \"id\": { \"type\": \"string\" },\r",
+									"                    \"status\": { \"type\": \"string\" },\r",
+									"                    \"orderindex\": { \"type\": \"number\" },\r",
+									"                    \"color\": { \"type\": \"string\" },\r",
+									"                    \"type\": { \"type\": \"string\" },\r",
+									"                    \"status_group\": { \"type\": \"string\" }\r",
+									"                }\r",
+									"            }\r",
+									"        },\r",
+									"        \"permission_level\": { \"type\": \"string\" }\r",
+									"    },\r",
+									"    \"required\": [\"id\", \"name\", \"deleted\", \"orderindex\", \"content\", \"status\", \"priority\", \"assignee\", \"due_date\", \"start_date\", \"folder\", \"space\", \"inbound_address\", \"archived\", \"override_statuses\", \"statuses\", \"permission_level\"]\r",
+									"}\r",
+									"\r",
+									"const validate = ajv.compile(schema);\r",
+									"const response = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Schema is valid\", function () {\r",
+									"   const valid = validate(response);\r",
+									"   pm.expect(valid, JSON.stringify(validate.errors)).to.be.true;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"packages": {},
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{my_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"content\": \"text\",\r\n  \"priority\": 2,\r\n\"status\": \"red\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/folder/{{folder}}/list",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"folder",
+								"{{folder}}",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create_list  / Get_list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"//console.log (\"My massege in PRE\")"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{my_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/list/{{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create_list  / Delete_List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{my_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/list/{{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Get List_correct",
+			"item": [
+				{
+					"name": "Get_list  / Create_list",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json ()\r",
+									"var id=jsonData.id\r",
+									"console.log(\"id\")\r",
+									"console.log(id)\r",
+									"pm.collectionVariables.set(\"id\", id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{my_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"{{$randomFullName}}\",\r\n  \"content\": \"text\",\r\n  \"priority\": 3,\r\n\"status\": \"green\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/folder/{{folder}}/list",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"folder",
+								"{{folder}}",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get_list / Get_list",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{my_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/list/{{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get_list  / Delete_List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{my_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/list/{{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Get_list_correct_SCRIPTS",
+			"item": [
+				{
+					"name": "Get_list / Get_list_scripts",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"try {\r",
+									"    var res = pm.sendRequest({\r",
+									"        url: \"https://api.clickup.com/api/v2/folder/90156757469/list\",\r",
+									"       method: \"POST\",\r",
+									"       header: { \"Authorization\": pm.environment.get(\"my_token\")},\r",
+									"       body: {\r",
+									"            \"name\": \"259\",\r",
+									"            \"content\": \"text\",\r",
+									"            \"priority\": 3,\r",
+									"            \"status\": \"green\"\r",
+									"       }\r",
+									"   }, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.error(err);\r",
+									"    } else {\r",
+									"        var jsonData = res.json();\r",
+									"        pm.collectionVariables.set(\"name\", name)\r",
+									"        pm.collectionVariables.set(\"id\", id);\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"    console.log(response.json());\r",
+									"} catch (err) {\r",
+									"    console.error(err);\r",
+									"};\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json ()\r",
+									"var id = jsonData.id\r",
+									"console.log(\"id\")\r",
+									"console.log(id)\r",
+									"pm.collectionVariables.get(\"id\", id);\r",
+									"\r",
+									"var jsonData = pm.response.json ()\r",
+									"var name = jsonData.name\r",
+									"console.log(\"name\")\r",
+									"console.log(name)\r",
+									"pm.collectionVariables.get(\"name\", name);\r",
+									"\r",
+									"try {\r",
+									"    var res = pm.sendRequest({\r",
+									"        url: \"https://api.clickup.com/api/v2/list/901511204349\",\r",
+									"        method: \"DELETE\",\r",
+									"        header: { \"Authorization\": pm.environment.get(\"my_token\") }\r",
+									"    });\r",
+									"\r",
+									"    console.log(response.json());\r",
+									"} catch (err) {\r",
+									"    console.error(err);\r",
+									"}\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{my_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/list/{{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Get_list_wrong",
+			"item": [
+				{
+					"name": "Get_list / Create_list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json()\r",
+									"var id = jsonData.id\r",
+									"console.log(\"id\")\r",
+									"console.log(id)\r",
+									"pm.collectionVariables.set(\"id\", id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{my_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"content\": \"text\",\r\n  \"priority\": 3,\r\n\"status\": \"yellow\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/folder/{{folder}}/list",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"folder",
+								"{{folder}}",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get_list / Get_list_invalid_id_list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{my_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "auth",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{url}}/list/1142",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"1142"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get_list / Get_list_no auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/list/{{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get_list / Get_list_invalid_api_key",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "pk_188602374_9K",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "auth",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{url}}/list/{{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get_list / Delete_List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{my_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/list/{{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Update_list",
+			"item": [
+				{
+					"name": "Update List / Create_list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json ()\r",
+									"var id=jsonData.id\r",
+									"console.log(\"id\")\r",
+									"console.log(id)\r",
+									"var name=jsonData.name\r",
+									"console.log(\"name\")\r",
+									"console.log(name)\r",
+									"pm.collectionVariables.set(\"id\", id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{my_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"{{$randomFirstName}}\",\r\n  \"content\": \"text\",\r\n  \"priority\": 3,\r\n\"status\": \"green\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/folder/{{folder}}/list",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"folder",
+								"{{folder}}",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update List / Update List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"var jsonData = pm.response.json ()\r",
+									"var name=jsonData.name\r",
+									"console.log(name)\r",
+									"\r",
+									"pm.test(\"Check name is updated\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var expectedName = pm.collectionVariables.get(\"ListName\")\r",
+									"    pm.expect(jsonData.name).to.eql(expectedName);\r",
+									"});\r",
+									"pm.test(\"Check priority is updated\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.priority.priority).to.eql(\"normal\");\r",
+									"});\r",
+									"pm.test(\"Check status is updated\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.status.status).to.eql(\"orange\");\r",
+									"});\r",
+									"var jsonData = pm.response.json()\r",
+									"var priority = jsonData.priority\r",
+									"var status = jsonData.status\r",
+									"console.log(priority)\r",
+									"console.log(status)\r",
+									"//pm.test(\"Check that space_id is 90154472887\", function () {\r",
+									"    //var jsonData = pm.response.json();\r",
+									"\r",
+									"    \r",
+									"    //var space_id = jsonData.space.id\r",
+									"//console.log(\"Нижче буде мій json object\")\r",
+									"//console.log(jsonData.id)\r",
+									"\r",
+									"//console.log(jsonData.space.id)\r",
+									"  //  pm.expect(jsonData.space.id).to.eql(\"90154472887\");\r",
+									"//});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var name = pm.variables.replaceIn('{{$randomFirstName}}')\r",
+									"console.log(\"This is my generated name\")\r",
+									"console.log(name)\r",
+									"pm.collectionVariables.set(\"ListName\", name);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{my_token}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"due_date_time\": true,\r\n  \"unset_status\": true,\r\n  \"name\": \"{{ListName}}\",\r\n  \"content\": \"pdf\",\r\n  \"due_date\": 10052025,\r\n  \"priority\": 3,\r\n  \"status\": \"orange\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/list/{{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update List / Get_list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"var jsonData = pm.response.json()\r",
+									"var name = jsonData.name\r",
+									"console.log(name)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{my_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/list/{{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update List /Delete_List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{my_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/list/{{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Delete list corect",
+			"item": [
+				{
+					"name": "Delete_list / Create_list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//pm.test(\"Your test name\", function () {\r",
+									"  //  var jsonData = pm.response.json();\r",
+									"  //  console. log (jsonData)\r",
+									"    //pm.expect(jsonData.value).to.eql(100);\r",
+									"//});\r",
+									"var jsonData = pm.response.json()\r",
+									"var id = jsonData.id\r",
+									"pm.collectionVariables.set(\"id\", id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{my_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"{{$randomColor}}\",\r\n  \"content\": \"text\",\r\n  \"priority\": 3,\r\n\"status\": \"green\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/folder/{{folder}}/list",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"folder",
+								"{{folder}}",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete_List / Delete_List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{my_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/list/{{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete_List / Get List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{my_token}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/list/{{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Delete list wrong",
+			"item": [
+				{
+					"name": "Create_list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData=pm.response.json()\r",
+									"var id=jsonData.id\r",
+									"pm.collectionVariables.set(\"id\", id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{my_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"{{$randomDepartment}}\",\r\n  \"content\": \"text\",\r\n  \"priority\": 3,\r\n\"status\": \"green\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/folder/{{folder}}/list",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"folder",
+								"{{folder}}",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete_List_no auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/list/{{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete_List_invalid_id_list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{my_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/list/901",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"901"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete_List_invalid_API_key",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "pk_188602374_9KRHU2MK",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/list/{{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete_List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{my_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/list/{{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete_List / Get List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{my_token}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/list/{{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Get Lists",
+			"item": [
+				{
+					"name": "Get Lists / Create_list_1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json ()\r",
+									"var id_g1 = jsonData.id\r",
+									"pm.collectionVariables.set(\"id_g1\", id_g1);\r",
+									"console.log(\"id\")\r",
+									"console.log(id_g1)\r",
+									"\r",
+									"//pm.environment.set(\"id_g1\", id_g1);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{my_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"{{$randomColor}}\",\r\n  \"content\": \"text\",\r\n  \"priority\": 3,\r\n\"status\": \"green\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/folder/{{folder}}/list",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"folder",
+								"{{folder}}",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Lists / Create_list_2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json ()\r",
+									"var id_g2 = jsonData.id\r",
+									"pm.collectionVariables.set(\"id_g2\", id_g2);\r",
+									"console.log(\"id\")\r",
+									"console.log(id_g2)\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{my_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"{{$randomColor}}\",\r\n  \"content\": \"text\",\r\n  \"priority\": 3,\r\n\"status\": \"blue\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/folder/{{folder}}/list",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"folder",
+								"{{folder}}",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Lists / Get Lists",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"console.log(jsonData.lists)\r",
+									"jsonData.lists.forEach(item=>{\r",
+									"    console.log (`name is ${item.name} and id is ${item.id}`)\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "pk_188602374_QF2LZJR6V9QO7OX2P3YYV79DZE6Q8FBR",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/folder/{{folder}}/list",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"folder",
+								"{{folder}}",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Lists / Delete_List_1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{my_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/list/{{id_g1}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"{{id_g1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Lists / Delete_List_2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{my_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/list/{{id_g2}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"{{id_g2}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "folder",
+			"value": "90156757469"
+		},
+		{
+			"key": "id_g2",
+			"value": ""
+		},
+		{
+			"key": "id",
+			"value": "901511190803"
+		},
+		{
+			"key": "ListName",
+			"value": ""
+		},
+		{
+			"key": "id_g1",
+			"value": ""
+		},
+		{
+			"key": "name",
+			"value": ""
+		}
+	]
+}
