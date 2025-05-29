@@ -1,0 +1,202 @@
+{
+    "lists": [
+        {
+            "id": "901511595021",
+            "name": "cyan",
+            "orderindex": 0,
+            "content": "text",
+            "status": {
+                "status": "green",
+                "color": "#008844",
+                "hide_label": true
+            },
+            "priority": {
+                "priority": "normal",
+                "color": "#6fddff"
+            },
+            "assignee": null,
+            "task_count": 0,
+            "due_date": null,
+            "start_date": null,
+            "folder": {
+                "id": "90157163519",
+                "name": "folder_01",
+                "hidden": false,
+                "access": true
+            },
+            "space": {
+                "id": "90154802712",
+                "name": "Space_01",
+                "access": true
+            },
+            "archived": false,
+            "override_statuses": false,
+            "permission_level": "create"
+        },
+        {
+            "id": "901511595022",
+            "name": "turquoise",
+            "orderindex": 1,
+            "content": "text",
+            "status": {
+                "status": "green",
+                "color": "#008844",
+                "hide_label": true
+            },
+            "priority": {
+                "priority": "normal",
+                "color": "#6fddff"
+            },
+            "assignee": null,
+            "task_count": 0,
+            "due_date": null,
+            "start_date": null,
+            "folder": {
+                "id": "90157163519",
+                "name": "folder_01",
+                "hidden": false,
+                "access": true
+            },
+            "space": {
+                "id": "90154802712",
+                "name": "Space_01",
+                "access": true
+            },
+            "archived": false,
+            "override_statuses": false,
+            "permission_level": "create"
+        },
+        {
+            "id": "901511595023",
+            "name": "tan",
+            "orderindex": 2,
+            "content": "text",
+            "status": {
+                "status": "blue",
+                "color": "#1090e0",
+                "hide_label": true
+            },
+            "priority": {
+                "priority": "normal",
+                "color": "#6fddff"
+            },
+            "assignee": null,
+            "task_count": 0,
+            "due_date": null,
+            "start_date": null,
+            "folder": {
+                "id": "90157163519",
+                "name": "folder_01",
+                "hidden": false,
+                "access": true
+            },
+            "space": {
+                "id": "90154802712",
+                "name": "Space_01",
+                "access": true
+            },
+            "archived": false,
+            "override_statuses": false,
+            "permission_level": "create"
+        },
+        {
+            "id": "901511595025",
+            "name": "olive",
+            "orderindex": 3,
+            "content": "text",
+            "status": {
+                "status": "blue",
+                "color": "#1090e0",
+                "hide_label": true
+            },
+            "priority": {
+                "priority": "normal",
+                "color": "#6fddff"
+            },
+            "assignee": null,
+            "task_count": 0,
+            "due_date": null,
+            "start_date": null,
+            "folder": {
+                "id": "90157163519",
+                "name": "folder_01",
+                "hidden": false,
+                "access": true
+            },
+            "space": {
+                "id": "90154802712",
+                "name": "Space_01",
+                "access": true
+            },
+            "archived": false,
+            "override_statuses": false,
+            "permission_level": "create"
+        },
+        {
+            "id": "901511595033",
+            "name": "maroon",
+            "orderindex": 4,
+            "content": "text",
+            "status": {
+                "status": "blue",
+                "color": "#1090e0",
+                "hide_label": true
+            },
+            "priority": {
+                "priority": "normal",
+                "color": "#6fddff"
+            },
+            "assignee": null,
+            "task_count": 0,
+            "due_date": null,
+            "start_date": null,
+            "folder": {
+                "id": "90157163519",
+                "name": "folder_01",
+                "hidden": false,
+                "access": true
+            },
+            "space": {
+                "id": "90154802712",
+                "name": "Space_01",
+                "access": true
+            },
+            "archived": false,
+            "override_statuses": false,
+            "permission_level": "create"
+        },
+        {
+            "id": "901511595040",
+            "name": "pink",
+            "orderindex": 5,
+            "content": "text",
+            "status": {
+                "status": "blue",
+                "color": "#1090e0",
+                "hide_label": true
+            },
+            "priority": {
+                "priority": "normal",
+                "color": "#6fddff"
+            },
+            "assignee": null,
+            "task_count": 0,
+            "due_date": null,
+            "start_date": null,
+            "folder": {
+                "id": "90157163519",
+                "name": "folder_01",
+                "hidden": false,
+                "access": true
+            },
+            "space": {
+                "id": "90154802712",
+                "name": "Space_01",
+                "access": true
+            },
+            "archived": false,
+            "override_statuses": false,
+            "permission_level": "create"
+        }
+    ]
+}
